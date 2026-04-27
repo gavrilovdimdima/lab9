@@ -1,0 +1,133 @@
+  <!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Места работы</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #e8f0fe;
+        }
+
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            width: 700px;
+            margin: 30px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 16px;
+            flex: 1;
+        }
+
+        button {
+            padding: 10px 15px;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1a252f;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background: #f2f2f2;
+        }
+
+        .delete-btn {
+            background: #c0392b;
+        }
+
+        .total {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Список мест работы</h1>
+</header>
+
+<div class="container">
+    <h2>Добавить место работы</h2>
+
+    <div class="form">
+        <input type="text" id="company" placeholder="Наименование места работы">
+        <input type="number" id="term" placeholder="Срок работы в месяцах">
+        <button onclick="addWorkplace()">Добавить</button>
+    </div>
+
+    <h2>Места работы</h2>
+
+    <table>
+        <tr>
+            <th>№</th>
+            <th>Место работы</th>
+            <th>Срок работы, мес.</th>
+            <th>Удалить</th>
+        </tr>
+
+        {% for place in workplaces %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ place.company }}</td>
+            <td>{{ place.term }}</td>
+            <td>
+                <button class="delete-btn" onclick="deleteWorkplace({{ place.id }})">
+                    Удалить
+                </button>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class="total">
+        Общий стаж: {{ total_term }} мес.
+        <br>
+        Это {{ years }} г. {{ months }} мес.
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='update.js') }}"></script>
+
+</body>
+</html>
